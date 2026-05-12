@@ -1,0 +1,44 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.env
+.venv/
+venv/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data
+data/raw/
+data/processed/
+*.zip
+
+# Models
+models/*.pth
+models/*.pt
+models/*.h5
+models/*.keras
+models/*.onnx
+
+# Reports generated
+reports/*.png
+reports/*.jpg
+reports/*.jpeg
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Node / Frontend
+node_modules/
+dist/
+build/
+
+# Docker
+*.log

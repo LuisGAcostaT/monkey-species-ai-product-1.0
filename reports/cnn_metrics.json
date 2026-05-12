@@ -1,0 +1,12 @@
+{
+    "model_name": "MonkeyCNN",
+    "best_epoch": 15,
+    "best_validation_f1": 0.5853964804373877,
+    "final_train_loss": 1.2779039857381023,
+    "final_train_accuracy": 0.5350957155879672,
+    "final_train_f1": 0.530002013634932,
+    "final_validation_loss": 1.1899293100132662,
+    "final_validation_accuracy": 0.5882352941176471,
+    "final_validation_f1": 0.5853964804373877,
+    "model_path": "C:\\Users\\User\\monkey-species-ai-product\\models\\cnn_monkey_classifier.pth"
+}

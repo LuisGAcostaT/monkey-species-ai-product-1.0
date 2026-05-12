@@ -1,0 +1,42 @@
+{
+    "total_train": 1097,
+    "total_validation": 272,
+    "total_dataset": 1369,
+    "train_counts": {
+        "n0": 105,
+        "n1": 111,
+        "n2": 110,
+        "n3": 122,
+        "n4": 105,
+        "n5": 113,
+        "n6": 106,
+        "n7": 114,
+        "n8": 106,
+        "n9": 105
+    },
+    "validation_counts": {
+        "n0": 26,
+        "n1": 28,
+        "n2": 27,
+        "n3": 30,
+        "n4": 26,
+        "n5": 28,
+        "n6": 26,
+        "n7": 28,
+        "n8": 27,
+        "n9": 26
+    },
+    "image_size_stats": {
+        "min_width": 183,
+        "max_width": 6000,
+        "min_height": 198,
+        "max_height": 5472
+    },
+    "observations": [
+        "Dataset pequeño, con riesgo de overfitting.",
+        "Las clases están relativamente balanceadas, aunque existen diferencias leves.",
+        "Las imágenes tienen tamaños originales variables.",
+        "La tarea es fine-grained classification, por lo que puede haber confusión entre especies visualmente similares.",
+        "Se recomienda usar data augmentation y transfer learning."
+    ]
+}

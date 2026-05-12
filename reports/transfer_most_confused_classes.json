@@ -1,0 +1,22 @@
+[
+    {
+        "true_class": "n2",
+        "predicted_class": "n8",
+        "count": 1
+    },
+    {
+        "true_class": "n3",
+        "predicted_class": "n9",
+        "count": 1
+    },
+    {
+        "true_class": "n5",
+        "predicted_class": "n9",
+        "count": 1
+    },
+    {
+        "true_class": "n9",
+        "predicted_class": "n0",
+        "count": 1
+    }
+]

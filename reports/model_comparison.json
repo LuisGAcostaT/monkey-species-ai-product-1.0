@@ -1,0 +1,24 @@
+{
+    "cnn": {
+        "model_name": "MonkeyCNN",
+        "accuracy": 0.5882352941176471,
+        "precision_macro": 0.6164090083959171,
+        "recall_macro": 0.5854761904761905,
+        "macro_f1": 0.5853964804373877,
+        "top_3_accuracy": 0.8676470588235294,
+        "model_path": "C:\\Users\\User\\monkey-species-ai-product\\models\\cnn_monkey_classifier.pth"
+    },
+    "efficientnet_b0": {
+        "model_name": "EfficientNet-B0",
+        "accuracy": 0.9852941176470589,
+        "precision_macro": 0.9853174603174603,
+        "recall_macro": 0.9855453805453805,
+        "macro_f1": 0.9852347588452481,
+        "top_3_accuracy": 1.0,
+        "model_path": "C:\\Users\\User\\monkey-species-ai-product\\models\\efficientnet_monkey_classifier.pth",
+        "checkpoint_epoch": 8,
+        "best_validation_f1_from_training": 0.9852347588452481
+    },
+    "selected_model": "EfficientNet-B0",
+    "selection_reason": "EfficientNet-B0 fue seleccionado como modelo final por obtener mejores métricas de validación y mayor capacidad de generalización frente a la CNN propia."
+}

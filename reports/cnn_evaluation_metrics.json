@@ -1,0 +1,9 @@
+{
+    "model_name": "MonkeyCNN",
+    "accuracy": 0.5882352941176471,
+    "precision_macro": 0.6164090083959171,
+    "recall_macro": 0.5854761904761905,
+    "macro_f1": 0.5853964804373877,
+    "top_3_accuracy": 0.8676470588235294,
+    "model_path": "C:\\Users\\User\\monkey-species-ai-product\\models\\cnn_monkey_classifier.pth"
+}

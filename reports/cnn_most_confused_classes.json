@@ -1,0 +1,27 @@
+[
+    {
+        "true_class": "n0",
+        "predicted_class": "n9",
+        "count": 13
+    },
+    {
+        "true_class": "n8",
+        "predicted_class": "n4",
+        "count": 9
+    },
+    {
+        "true_class": "n4",
+        "predicted_class": "n7",
+        "count": 6
+    },
+    {
+        "true_class": "n6",
+        "predicted_class": "n1",
+        "count": 6
+    },
+    {
+        "true_class": "n1",
+        "predicted_class": "n7",
+        "count": 5
+    }
+]

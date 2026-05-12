@@ -1,0 +1,12 @@
+{
+    "model_name": "EfficientNet-B0",
+    "best_epoch": 8,
+    "best_validation_f1": 0.9852347588452481,
+    "final_train_loss": 0.15197988592067846,
+    "final_train_accuracy": 0.9653600729261622,
+    "final_train_f1": 0.9650621552231587,
+    "final_validation_loss": 0.08965100523303537,
+    "final_validation_accuracy": 0.9816176470588235,
+    "final_validation_f1": 0.98137429833253,
+    "model_path": "C:\\Users\\User\\monkey-species-ai-product\\models\\efficientnet_monkey_classifier.pth"
+}

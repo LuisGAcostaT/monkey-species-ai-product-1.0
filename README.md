@@ -441,7 +441,7 @@ models/efficientnet_monkey_classifier.pth
 El archivo del modelo entrenado puede descargarse desde el siguiente enlace:
 
 ```txt
-https://github.com/LuisGAcostaT/monkey-species-ai-product/releases/tag/v1.0.0
+https://github.com/LuisGAcostaT/monkey-species-ai-product-1.0/releases/tag/v1.0.0
 ```
 
 Después de descargarlo, debe ubicarse en:

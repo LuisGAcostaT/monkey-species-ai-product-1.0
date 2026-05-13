@@ -381,32 +381,6 @@ Este archivo es necesario para ejecutar la inferencia local, levantar el backend
 
 ---
 
-## Configuración del frontend
-
-El frontend usa una variable de entorno para saber a qué backend conectarse.
-
-Crear el archivo:
-
-```txt
-frontend/.env
-```
-
-Para ejecución local con backend local:
-
-```env
-VITE_API_URL=http://localhost:8000
-```
-
-Para usar el backend desplegado en Cloud Run:
-
-```env
-VITE_API_URL=https://monkey-species-backend-992637477682.us-east1.run.app
-```
-
-Después de modificar `.env`, se debe reiniciar el servidor de Vite.
-
----
-
 ## Ejecución local sin Docker
 
 ### 1. Verificar modelo serializado

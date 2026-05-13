@@ -6,7 +6,7 @@
 
 Este proyecto desarrolla una solución completa de inteligencia artificial para clasificación multiclase de imágenes de especies de monos, utilizando el dataset **10 Monkey Species** de Kaggle.
 
-La solución no se limita al entrenamiento de una red neuronal, sino que implementa un producto funcional de extremo a extremo, compuesto por:
+El proyecto aborda el ciclo completo de desarrollo de un modelo de clasificación de imágenes, desde la exploración del dataset y el entrenamiento de modelos base, hasta la exposición del modelo mediante una API, una interfaz web y un despliegue reproducible en contenedores.
 
 * Análisis exploratorio del dataset.
 * Preprocesamiento y data augmentation.

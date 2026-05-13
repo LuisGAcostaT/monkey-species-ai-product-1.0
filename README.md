@@ -16,6 +16,18 @@ El proyecto utiliza el dataset **10 Monkey Species** de Kaggle y cubre el flujo 
 
 ---
 
+## Requisitos previos
+
+Para ejecutar el proyecto localmente se requiere:
+
+- Python 3.10 o superior.
+- Node.js 18 o superior.
+- Docker y Docker Compose, si se desea ejecutar la solución contenerizada.
+- Cuenta de Kaggle y token de API, solo si se desea descargar el dataset y reentrenar los modelos.
+- Google Cloud SDK configurado, solo si se desea replicar el despliegue en Cloud Run.
+
+---
+
 ## Demo público
 
 ### Frontend

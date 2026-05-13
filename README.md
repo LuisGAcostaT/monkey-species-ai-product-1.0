@@ -63,121 +63,6 @@ El dataset contiene imágenes JPEG organizadas en carpetas de entrenamiento y va
 
 ---
 
-## Nota importante sobre el dataset local
-
-El dataset completo **no se versiona dentro del repositorio** debido a su tamaño.
-
-Por esta razón, si se clona el proyecto desde cero, antes de ejecutar scripts de entrenamiento o evaluación se debe descargar el dataset y dejarlo en la estructura esperada.
-
-La estructura local esperada es:
-
-```txt
-monkey-species-ai-product/
-├── data/
-│   └── raw/
-│       ├── training/
-│       │   └── training/
-│       │       ├── n0/
-│       │       ├── n1/
-│       │       ├── n2/
-│       │       ├── n3/
-│       │       ├── n4/
-│       │       ├── n5/
-│       │       ├── n6/
-│       │       ├── n7/
-│       │       ├── n8/
-│       │       └── n9/
-│       │
-│       ├── validation/
-│       │   └── validation/
-│       │       ├── n0/
-│       │       ├── n1/
-│       │       ├── n2/
-│       │       ├── n3/
-│       │       ├── n4/
-│       │       ├── n5/
-│       │       ├── n6/
-│       │       ├── n7/
-│       │       ├── n8/
-│       │       └── n9/
-│       │
-│       └── monkey_labels.txt
-```
-
-Si la carpeta `data/raw/training/training` no existe, los scripts de entrenamiento generarán un error similar a:
-
-```txt
-FileNotFoundError: No existe la carpeta de entrenamiento
-```
-
----
-
-## Descargar dataset con Kaggle
-
-Para descargar el dataset desde Kaggle, primero se debe tener configurado el token de Kaggle.
-
-### 1. Instalar Kaggle CLI
-
-```bash
-pip install kaggle
-```
-
-### 2. Configurar token de Kaggle
-
-Crear un token desde la cuenta de Kaggle y ubicarlo según el sistema operativo.
-
-En Windows normalmente debe quedar en:
-
-```txt
-C:\Users\<usuario>\.kaggle\kaggle.json
-```
-
-### 3. Descargar y descomprimir el dataset
-
-Desde la raíz del proyecto:
-
-```bash
-mkdir data\raw
-kaggle datasets download -d slothkong/10-monkey-species -p data\raw --unzip
-```
-
-### 4. Validar estructura del dataset
-
-Después de descargarlo, ejecutar:
-
-```bash
-python -m src.training.check_dataset
-```
-
-Si la estructura es correcta, el script mostrará el conteo de imágenes por clase en entrenamiento y validación.
-
----
-
-## Uso sin dataset local
-
-Para ejecutar el producto web o consumir la API **no es necesario tener el dataset completo localmente**.
-
-Para usar la aplicación solo se requiere:
-
-1. Tener el modelo serializado en:
-
-```txt
-models/efficientnet_monkey_classifier.pth
-```
-
-2. Ejecutar el backend y el frontend.
-
-3. Usar una imagen propia o las imágenes de prueba precargadas en la interfaz web.
-
-El dataset local solo es necesario si se desea:
-
-- Reentrenar la CNN propia.
-- Reentrenar EfficientNet-B0.
-- Ejecutar el análisis exploratorio.
-- Ejecutar evaluaciones completas sobre training/validation.
-
----
-
 ## Estructura del proyecto
 
 ```txt
@@ -266,6 +151,431 @@ La solución está separada en dos servicios principales:
 | Frontend     | React + Vite              | Interfaz web para carga y visualización |
 | Contenedores | Docker                    | Empaquetamiento de servicios            |
 | Despliegue   | Google Cloud Run          | Publicación del backend y frontend      |
+
+---
+
+## Instalación local desde cero
+
+Esta sección permite ejecutar el proyecto localmente después de clonar el repositorio.
+
+### 1. Clonar el repositorio
+
+```bash
+git clone URL_DEL_REPOSITORIO
+cd monkey-species-ai-product
+```
+
+### 2. Crear entorno virtual
+
+```bash
+python -m venv venv
+```
+
+### 3. Activar entorno virtual en Windows
+
+```bash
+.\venv\Scripts\Activate.ps1
+```
+
+### 4. Instalar dependencias del proyecto
+
+```bash
+pip install -r requirements.txt
+```
+
+Si se desea ejecutar el backend directamente, también se pueden instalar las dependencias del backend:
+
+```bash
+pip install -r backend/requirements.txt
+```
+
+---
+
+## Configuración de Kaggle para descargar el dataset
+
+El dataset completo **no se versiona dentro del repositorio** debido a su tamaño.
+
+Por esta razón, si se desea ejecutar entrenamiento, evaluación o análisis exploratorio, se debe descargar el dataset desde Kaggle.
+
+### 1. Instalar Kaggle CLI
+
+Con el entorno virtual activo:
+
+```bash
+pip install kaggle
+```
+
+### 2. Configurar token de Kaggle en PowerShell
+
+Kaggle puede entregar un token tipo API Key. Para usarlo temporalmente en la terminal actual, ejecutar:
+
+```powershell
+$env:KAGGLE_API_TOKEN="TU_TOKEN_NUEVO"
+```
+
+Ejemplo de formato, sin usar el token real:
+
+```powershell
+$env:KAGGLE_API_TOKEN="KGAT_xxxxxxxxxxxxxxxxxxxxxxxx"
+```
+
+Este método deja el token activo únicamente en la terminal actual.
+
+### 3. Probar conexión con Kaggle
+
+```bash
+kaggle datasets list
+```
+
+Si se listan datasets, la configuración quedó funcionando.
+
+### 4. Descargar el dataset
+
+Desde la raíz del proyecto:
+
+```powershell
+mkdir data\raw
+kaggle datasets download -d slothkong/10-monkey-species -p data/raw
+```
+
+Esto descargará un archivo `.zip` dentro de:
+
+```txt
+data/raw
+```
+
+### 5. Descomprimir el dataset
+
+Ejecutar:
+
+```powershell
+Expand-Archive -Path "data/raw/10-monkey-species.zip" -DestinationPath "data/raw" -Force
+```
+
+### 6. Validar estructura del dataset
+
+Después de descomprimir, la estructura esperada es:
+
+```txt
+monkey-species-ai-product/
+├── data/
+│   └── raw/
+│       ├── training/
+│       │   └── training/
+│       │       ├── n0/
+│       │       ├── n1/
+│       │       ├── n2/
+│       │       ├── n3/
+│       │       ├── n4/
+│       │       ├── n5/
+│       │       ├── n6/
+│       │       ├── n7/
+│       │       ├── n8/
+│       │       └── n9/
+│       │
+│       ├── validation/
+│       │   └── validation/
+│       │       ├── n0/
+│       │       ├── n1/
+│       │       ├── n2/
+│       │       ├── n3/
+│       │       ├── n4/
+│       │       ├── n5/
+│       │       ├── n6/
+│       │       ├── n7/
+│       │       ├── n8/
+│       │       └── n9/
+│       │
+│       └── monkey_labels.txt
+```
+
+Para validar automáticamente:
+
+```bash
+python -m src.training.check_dataset
+```
+
+Si la carpeta `data/raw/training/training` no existe, los scripts de entrenamiento generarán un error similar a:
+
+```txt
+FileNotFoundError: No existe la carpeta de entrenamiento
+```
+
+---
+
+## Uso sin dataset local
+
+Para ejecutar el producto web o consumir la API **no es necesario tener el dataset completo localmente**.
+
+Para usar la aplicación solo se requiere:
+
+1. Tener el modelo serializado en:
+
+```txt
+models/efficientnet_monkey_classifier.pth
+```
+
+2. Ejecutar el backend y el frontend.
+
+3. Usar una imagen propia o las imágenes de prueba precargadas en la interfaz web.
+
+El dataset local solo es necesario si se desea:
+
+- Reentrenar la CNN propia.
+- Reentrenar EfficientNet-B0.
+- Ejecutar el análisis exploratorio.
+- Ejecutar evaluaciones completas sobre training/validation.
+
+---
+
+## Modelo serializado
+
+El modelo final entrenado corresponde a **EfficientNet-B0** y se guarda localmente en la siguiente ruta:
+
+```txt
+models/efficientnet_monkey_classifier.pth
+```
+
+Este archivo contiene el checkpoint del modelo seleccionado para inferencia y despliegue, incluyendo los pesos entrenados, la arquitectura esperada, la época del mejor checkpoint y las métricas asociadas al mejor desempeño en validación.
+
+Por buenas prácticas, el archivo `.pth` no se versiona directamente en Git debido a su tamaño. Sin embargo, el modelo puede obtenerse de dos formas:
+
+### Opción 1: Regenerar el modelo desde el código
+
+Para regenerar el modelo, primero se debe tener el dataset descargado localmente en la estructura indicada en la sección **Configuración de Kaggle para descargar el dataset**.
+
+Luego ejecutar:
+
+```bash
+python -m src.training.train_transfer
+```
+
+Al finalizar, se generará el archivo:
+
+```txt
+models/efficientnet_monkey_classifier.pth
+```
+
+### Opción 2: Descargar el modelo entrenado
+
+El archivo del modelo entrenado puede descargarse desde el siguiente enlace:
+
+```txt
+https://github.com/LuisGAcostaT/monkey-species-ai-product-1.0/releases/tag/v1.0.0
+```
+
+Después de descargarlo, debe ubicarse en:
+
+```txt
+models/efficientnet_monkey_classifier.pth
+```
+
+La estructura esperada debe quedar así:
+
+```txt
+models/
+└── efficientnet_monkey_classifier.pth
+```
+
+Este archivo es necesario para ejecutar la inferencia local, levantar el backend y construir la imagen Docker del backend.
+
+---
+
+## Configuración del frontend
+
+El frontend usa una variable de entorno para saber a qué backend conectarse.
+
+Crear el archivo:
+
+```txt
+frontend/.env
+```
+
+Para ejecución local con backend local:
+
+```env
+VITE_API_URL=http://localhost:8000
+```
+
+Para usar el backend desplegado en Cloud Run:
+
+```env
+VITE_API_URL=https://monkey-species-backend-992637477682.us-east1.run.app
+```
+
+Después de modificar `.env`, se debe reiniciar el servidor de Vite.
+
+---
+
+## Ejecución local sin Docker
+
+### 1. Verificar modelo serializado
+
+Antes de levantar el backend, verificar que exista:
+
+```txt
+models/efficientnet_monkey_classifier.pth
+```
+
+Si no existe, descargarlo desde la release o regenerarlo con entrenamiento.
+
+### 2. Ejecutar backend
+
+Desde la raíz del proyecto:
+
+```bash
+uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+Backend local:
+
+```txt
+http://localhost:8000
+```
+
+Documentación Swagger:
+
+```txt
+http://localhost:8000/docs
+```
+
+Endpoints principales:
+
+```txt
+GET /health
+GET /model-info
+POST /predict
+```
+
+### 3. Ejecutar frontend
+
+En otra terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend local:
+
+```txt
+http://localhost:5173
+```
+
+---
+
+## Ejecución local con Docker Compose
+
+Antes de ejecutar Docker Compose, se debe tener el modelo serializado en:
+
+```txt
+models/efficientnet_monkey_classifier.pth
+```
+
+Luego, desde la raíz del proyecto:
+
+```bash
+docker compose up --build
+```
+
+Servicios locales:
+
+| Servicio | URL                     |
+| -------- | ----------------------- |
+| Backend  | `http://localhost:8000` |
+| Frontend | `http://localhost:3000` |
+
+Para detener los contenedores:
+
+```bash
+docker compose down
+```
+
+---
+
+## Entrenamiento
+
+Antes de ejecutar estos comandos, asegúrate de haber descargado el dataset localmente y de que exista la siguiente estructura:
+
+```txt
+data/raw/training/training
+data/raw/validation/validation
+data/raw/monkey_labels.txt
+```
+
+### Validar dataset
+
+```bash
+python -m src.training.check_dataset
+```
+
+### Ejecutar análisis exploratorio
+
+```bash
+python -m src.training.eda
+```
+
+### Entrenar CNN propia
+
+```bash
+python -m src.training.train_cnn
+```
+
+### Evaluar CNN propia
+
+```bash
+python -m src.training.evaluate_cnn
+```
+
+### Entrenar EfficientNet-B0
+
+```bash
+python -m src.training.train_transfer
+```
+
+### Evaluar EfficientNet-B0
+
+```bash
+python -m src.training.evaluate_transfer
+```
+
+---
+
+## Inferencia local
+
+Para ejecutar inferencia local se necesita el modelo serializado en:
+
+```txt
+models/efficientnet_monkey_classifier.pth
+```
+
+Ejemplo usando una imagen del dataset:
+
+```bash
+python -m src.inference.predict --image "data/raw/validation/validation/n3/n300.jpg"
+```
+
+También se puede usar cualquier imagen local en formato JPG, JPEG o PNG.
+
+Salida esperada:
+
+```json
+{
+  "predicted_label": "n3",
+  "scientific_name": "macaca_fuscata",
+  "common_name": "japanese_macaque",
+  "confidence": 0.9084,
+  "top_predictions": [
+    {
+      "label": "n3",
+      "scientific_name": "macaca_fuscata",
+      "common_name": "japanese_macaque",
+      "confidence": 0.9084
+    }
+  ]
+}
+```
 
 ---
 
@@ -408,59 +718,6 @@ reports/model_comparison.md
 
 ---
 
-## Modelo serializado
-
-El modelo final entrenado corresponde a **EfficientNet-B0** y se guarda localmente en la siguiente ruta:
-
-```txt
-models/efficientnet_monkey_classifier.pth
-```
-
-Este archivo contiene el checkpoint del modelo seleccionado para inferencia y despliegue, incluyendo los pesos entrenados, la arquitectura esperada, la época del mejor checkpoint y las métricas asociadas al mejor desempeño en validación.
-
-Por buenas prácticas, el archivo `.pth` no se versiona directamente en Git debido a su tamaño. Sin embargo, el modelo puede obtenerse de dos formas:
-
-### Opción 1: Regenerar el modelo desde el código
-
-Para regenerar el modelo, primero se debe tener el dataset descargado localmente en la estructura indicada en la sección **Nota importante sobre el dataset local**.
-
-Luego ejecutar:
-
-```bash
-python -m src.training.train_transfer
-```
-
-Al finalizar, se generará el archivo:
-
-```txt
-models/efficientnet_monkey_classifier.pth
-```
-
-### Opción 2: Descargar el modelo entrenado
-
-El archivo del modelo entrenado puede descargarse desde el siguiente enlace:
-
-```txt
-https://github.com/LuisGAcostaT/monkey-species-ai-product-1.0/releases/tag/v1.0.0
-```
-
-Después de descargarlo, debe ubicarse en:
-
-```txt
-models/efficientnet_monkey_classifier.pth
-```
-
-La estructura esperada debe quedar así:
-
-```txt
-models/
-└── efficientnet_monkey_classifier.pth
-```
-
-Este archivo es necesario para ejecutar la inferencia local, levantar el backend y construir la imagen Docker del backend.
-
----
-
 ## Backend de inferencia
 
 El backend fue desarrollado con **FastAPI**.
@@ -525,197 +782,6 @@ Funcionalidades:
 - Mensajes de error ante archivos inválidos o fallos del backend.
 - Atlas visual de especies.
 - Imágenes de prueba precargadas para probar el modelo sin dataset local.
-
----
-
-## Ejecución local sin Docker
-
-### 1. Crear entorno virtual
-
-```bash
-python -m venv venv
-```
-
-### 2. Activar entorno virtual en Windows
-
-```bash
-.\venv\Scripts\Activate.ps1
-```
-
-### 3. Instalar dependencias generales
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Descargar el modelo serializado
-
-Descargar el archivo `.pth` desde la release del proyecto:
-
-```txt
-https://github.com/LuisGAcostaT/monkey-species-ai-product/releases/tag/v1.0.0
-```
-
-Ubicarlo en:
-
-```txt
-models/efficientnet_monkey_classifier.pth
-```
-
-### 5. Ejecutar backend
-
-```bash
-uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
-```
-
-Backend local:
-
-```txt
-http://localhost:8000
-```
-
-Documentación Swagger:
-
-```txt
-http://localhost:8000/docs
-```
-
-### 6. Ejecutar frontend
-
-En otra terminal:
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Frontend local:
-
-```txt
-http://localhost:5173
-```
-
----
-
-## Ejecución local con Docker Compose
-
-Antes de ejecutar Docker Compose, se debe tener el modelo serializado en:
-
-```txt
-models/efficientnet_monkey_classifier.pth
-```
-
-Luego, desde la raíz del proyecto:
-
-```bash
-docker compose up --build
-```
-
-Servicios locales:
-
-| Servicio | URL                     |
-| -------- | ----------------------- |
-| Backend  | `http://localhost:8000` |
-| Frontend | `http://localhost:3000` |
-
-Para detener los contenedores:
-
-```bash
-docker compose down
-```
-
----
-
-## Entrenamiento
-
-Antes de ejecutar estos comandos, asegúrate de haber descargado el dataset localmente y de que exista la siguiente estructura:
-
-```txt
-data/raw/training/training
-data/raw/validation/validation
-data/raw/monkey_labels.txt
-```
-
-Si el dataset no está descargado, ejecutar:
-
-```bash
-mkdir data\raw
-kaggle datasets download -d slothkong/10-monkey-species -p data\raw --unzip
-```
-
-### Validar dataset
-
-```bash
-python -m src.training.check_dataset
-```
-
-### Ejecutar análisis exploratorio
-
-```bash
-python -m src.training.eda
-```
-
-### Entrenar CNN propia
-
-```bash
-python -m src.training.train_cnn
-```
-
-### Evaluar CNN propia
-
-```bash
-python -m src.training.evaluate_cnn
-```
-
-### Entrenar EfficientNet-B0
-
-```bash
-python -m src.training.train_transfer
-```
-
-### Evaluar EfficientNet-B0
-
-```bash
-python -m src.training.evaluate_transfer
-```
-
----
-
-## Inferencia local
-
-Para ejecutar inferencia local se necesita el modelo serializado en:
-
-```txt
-models/efficientnet_monkey_classifier.pth
-```
-
-Ejemplo usando una imagen del dataset:
-
-```bash
-python -m src.inference.predict --image "data/raw/validation/validation/n3/n300.jpg"
-```
-
-También se puede usar cualquier imagen local en formato JPG, JPEG o PNG.
-
-Salida esperada:
-
-```json
-{
-  "predicted_label": "n3",
-  "scientific_name": "macaca_fuscata",
-  "common_name": "japanese_macaque",
-  "confidence": 0.9084,
-  "top_predictions": [
-    {
-      "label": "n3",
-      "scientific_name": "macaca_fuscata",
-      "common_name": "japanese_macaque",
-      "confidence": 0.9084
-    }
-  ]
-}
-```
 
 ---
 
